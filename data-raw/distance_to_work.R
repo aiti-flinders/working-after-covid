@@ -25,7 +25,7 @@ read_dtwp <- function(sheet, age, sex) {
     
 }
 
-distance_to_work <- pmap_dfr(.l = tb_helper(), .f = function(sheet, age, sex) read_dtwp(sheet, age, sex)) %>%
+distance_to_work <- pmap_dfr(.l = tb_helper(path), .f = function(sheet, age, sex) read_dtwp(sheet, age, sex)) %>%
   group_by(state, age, sex) %>%
   mutate(share = value/sum(value, na.rm = TRUE)) %>%
   ungroup()

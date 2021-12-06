@@ -4,7 +4,7 @@
 \alias{tb_helper}
 \title{Help for reading table builder files with 10 Year Groups and Sex}
 \usage{
-tb_helper()
+tb_helper(path)
 }
 \value{
 

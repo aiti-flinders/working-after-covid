@@ -41,15 +41,16 @@ read_mtwp <- function(sheet, age, sex) {
     pivot_longer(cols = 3:length(.),
                  names_to = "state",
                  values_to = "value") %>%
-    mutate(age = {age},
-           sex = {sex}) %>%
+    mutate(age = {{age}},
+           sex = {{sex}}) %>%
     filter(mtwp != "Total")
 }
 
 travel_to_work <- pmap_dfr(.l = l, .f = function(sheet, age, sex) read_mtwp(sheet = sheet, age = age, sex = sex)) %>%
   group_by(indp1, state, age, sex) %>%
   mutate(share = value/sum(value, na.rm = TRUE),
-         state = strayr::clean_state(state, to = "state_name", fuzzy_match = FALSE)) 
+         state = strayr::clean_state(state, to = "state_name", fuzzy_match = FALSE)) %>%
+  ungroup()
 
 usethis::use_data(travel_to_work, overwrite = TRUE)
 
