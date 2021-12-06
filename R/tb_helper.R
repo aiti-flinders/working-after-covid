@@ -4,7 +4,7 @@
 #' @export
 #'
 #' @examples
-tb_helper <- function() {
+tb_helper <- function(path) {
   age <- c("15-19 years",
            "20-29 years",
            "30-39 years",
@@ -20,7 +20,7 @@ tb_helper <- function() {
   sex <- c("Male", "Female")
   
   l <- data.frame(
-    sheet = mtwp_sheets,
+    sheet = readxl::excel_sheets(path),
     age = age, 
     sex = sex
   )
